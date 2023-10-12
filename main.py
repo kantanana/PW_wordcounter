@@ -3,7 +3,8 @@ apa = False
 flag = False
 with open('input.txt', 'r') as f:
     for para in f:
-        wordcount += 1
+        if not para.isalnum():
+            wordcount += 1
         para = para.strip()
         for each in para:
             if flag:
