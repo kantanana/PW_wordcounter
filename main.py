@@ -1,24 +1,17 @@
+# Word counter 1.2
+import re
 wordcount = 0
-apa = False
-flag = False
+text = ''
 with open('input.txt', 'r') as f:
     for para in f:
-        if not para.isalnum():
-            wordcount += 1
         para = para.strip()
-        for each in para:
-            if flag:
-                if each == ",":
-                    apa = True
-                if each == ")" and apa:
-                    flag = False
-                    wordcount -= 1
-                if each == ")":
-                    flag = False
-            else:
-                if each == " ":
-                    wordcount += 1
-                elif each == "(":
-                    flag = True
+        para = re.sub(r'\([^\)]+\, [^\)]+\)', '', para)
+        para = re.sub(r'[.,!?;:()"\'-]', '', para)
+        para = re.sub(r'\s+', ' ', para)
+        words = para.split()
+        text += para
+        text += ' '
+        wordcount += len(words)
 
-print(f'word count: {wordcount}')
+print(text)
+print(f'wordcount: {wordcount}')        
